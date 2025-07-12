@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c37d81xrwflse"]
+
+[ext_resource type="Script" uid="uid://dgs5llboi87ph" path="res://Player/Scripts/Sword_Attack.gd" id="1_4fvvm"]
+[ext_resource type="Texture2D" uid="uid://diaefps6fgk0x" path="res://Sprite/red dot.png" id="2_of367"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3s8p"]
+size = Vector2(24, 48)
+
+[node name="Sword_attack" type="Node2D"]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("1_4fvvm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.15256e-07, -3.8147e-06)
+scale = Vector2(1.5, 3)
+texture = ExtResource("2_of367")
+
+[node name="Sword_Attack" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword_Attack"]
+shape = SubResource("RectangleShape2D_y3s8p")
+
+[connection signal="area_entered" from="Sword_Attack" to="." method="_on_sword_attack_area_entered"]

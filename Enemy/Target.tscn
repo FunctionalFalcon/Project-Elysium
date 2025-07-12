@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2w816v5fri6u"]
+
+[ext_resource type="Script" uid="uid://dmcehnttxha5l" path="res://Enemy/target.gd" id="1_adiq6"]
+[ext_resource type="Texture2D" uid="uid://ca8ukivvhke6o" path="res://Sprite/white dot.png" id="1_xlkb2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hf4s6"]
+size = Vector2(18, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xft5"]
+size = Vector2(16, 16)
+
+[node name="Target" type="Node2D"]
+script = ExtResource("1_adiq6")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_xlkb2")
+
+[node name="EnemyHitbox" type="Area2D" parent="CharacterBody2D" groups=["Enemy_Hitbox"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/EnemyHitbox"]
+shape = SubResource("RectangleShape2D_hf4s6")
+
+[node name="WorldCollision" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_6xft5")

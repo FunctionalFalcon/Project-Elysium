@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://mhh07ivh0x8u"]
+
+[ext_resource type="Script" uid="uid://ccu08ow0x16yt" path="res://Player/reservescontents/reserved/Laser.gd" id="1_bfmsj"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l5si7"]
+a = Vector2(9, 0)
+b = Vector2(54, 0)
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_bfmsj")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(8, 0, 54, 0)
+default_color = Color(1, 0, 0, 0.6)
+
+[node name="Hurtbox" type="Area2D" parent="Line2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/Hurtbox"]
+shape = SubResource("SegmentShape2D_l5si7")
+
+[node name="Firerate" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Immobilize" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Aim" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

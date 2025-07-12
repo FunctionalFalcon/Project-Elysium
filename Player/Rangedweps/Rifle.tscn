@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://2tv3urxxni46"]
+
+[ext_resource type="Script" uid="uid://c8mr5iuaqwwcb" path="res://Player/Scripts/Rifle.gd" id="1_pndly"]
+
+[node name="rifle_shoot" type="Node2D" groups=["Player"]]
+script = ExtResource("1_pndly")
+
+[node name="Line2D_aim" type="Line2D" parent="."]
+visible = false
+scale = Vector2(1, 0.995012)
+points = PackedVector2Array(8, 0, 23.0782, 0, 54, 0)
+width = 5.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="Line2D_shoot" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0)
+default_color = Color(1, 0.509804, 0, 1)
+
+[node name="Firerate" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]

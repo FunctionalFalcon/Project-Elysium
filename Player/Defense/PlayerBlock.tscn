@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://itqhyi2mwf1t"]
+
+[ext_resource type="Script" uid="uid://bu1bmnf1bvtk5" path="res://Player/Scripts/Block.gd" id="1_onrrl"]
+[ext_resource type="Texture2D" uid="uid://pjjsup8d1nbs" path="res://transparent-circle-white-3.png" id="2_4mlpc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e0bc0"]
+radius = 40.0
+
+[node name="Block" type="Node2D"]
+script = ExtResource("1_onrrl")
+
+[node name="BlockHitbox" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockHitbox"]
+shape = SubResource("CircleShape2D_e0bc0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.521569, 0, 0.509804)
+position = Vector2(7.15256e-07, -2.5034e-06)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_4mlpc")
+
+[connection signal="area_entered" from="BlockHitbox" to="." method="_on_block_hitbox_area_entered"]

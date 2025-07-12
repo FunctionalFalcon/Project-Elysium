@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://02kncpcuxvg7"]
+
+[ext_resource type="Script" uid="uid://s76arg84a5w8" path="res://world.gd" id="1_eu7l1"]
+[ext_resource type="PackedScene" uid="uid://c0djyny0syeb" path="res://Player/Player.tscn" id="1_qxk84"]
+[ext_resource type="PackedScene" uid="uid://d2w816v5fri6u" path="res://Enemy/Target.tscn" id="3_t7pkc"]
+[ext_resource type="PackedScene" uid="uid://bwydmty7s0kmk" path="res://Map/Terrainhazards/Burnarea.tscn" id="5_ffexg"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_eu7l1")
+
+[node name="Player" parent="." instance=ExtResource("1_qxk84")]
+
+[node name="Camera" type="Camera2D" parent="Player"]
+
+[node name="Target" parent="." instance=ExtResource("3_t7pkc")]
+position = Vector2(386, 312)
+
+[node name="Burn" parent="." instance=ExtResource("5_ffexg")]
+position = Vector2(245, 205)

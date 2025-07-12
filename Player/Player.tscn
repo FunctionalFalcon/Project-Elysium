@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0djyny0syeb"]
+
+[ext_resource type="Script" uid="uid://bbh8jj51ikqfl" path="res://Player/Scripts/player.gd" id="1_tt6hs"]
+[ext_resource type="Texture2D" uid="uid://bgreneqy5b36a" path="res://Sprite/topdowntest.png" id="2_tok1r"]
+[ext_resource type="Script" uid="uid://pkghp22lfvw" path="res://Player/Scripts/Player_State_Machine.gd" id="3_tok1r"]
+[ext_resource type="Script" uid="uid://c0n0r5s3tcfqi" path="res://Player/Scripts/State_Melee.gd" id="4_ddoul"]
+[ext_resource type="Script" uid="uid://c540xjgwwhj7m" path="res://Player/Scripts/State_Rifle_aim.gd" id="5_8g4oa"]
+[ext_resource type="Script" uid="uid://3rf1eeljv3n1" path="res://Player/Scripts/State_Run.gd" id="6_6ysni"]
+[ext_resource type="Script" uid="uid://d0uc4un83u36a" path="res://Player/Scripts/State_Idle.gd" id="6_vlldt"]
+[ext_resource type="Script" uid="uid://vp2wbgxisg1u" path="res://Player/Scripts/State_Rifle_shoot.gd" id="8_s1rgi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m13lx"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1r71v"]
+size = Vector2(16, 16)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+top_level = true
+script = ExtResource("1_tt6hs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tok1r")
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+shape = SubResource("RectangleShape2D_m13lx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1r71v")
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("3_tok1r")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_vlldt")
+
+[node name="Run" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_6ysni")
+
+[node name="Defense" type="Node2D" parent="StateMachine"]
+
+[node name="Melee" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_ddoul")
+
+[node name="Rifle_aim" type="Node2D" parent="StateMachine"]
+script = ExtResource("5_8g4oa")
+
+[node name="Rifle_shoot" type="Node2D" parent="StateMachine"]
+script = ExtResource("8_s1rgi")
