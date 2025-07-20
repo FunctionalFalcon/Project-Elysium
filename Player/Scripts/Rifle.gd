@@ -10,6 +10,8 @@ const laserdur = 0.5
 const damage = 6
 var aiming = false
 var is_shot = true
+var from
+var to
 
 
 # ONREADY NODES
@@ -24,7 +26,7 @@ var is_shot = true
 # VAR FOR LASER DRAWING
 var hitPos: Vector2 # var is used to store hit location
 var laser_tween: Tween = null
-
+var playerPos: Vector2
 
 
 
@@ -47,22 +49,24 @@ func shoot_beam():
 
 	laser.width = thickness
 	laser.default_color = Color(235,130,0,1)
+	laser.points = [playerPos,hitPos]
+	laser.z_index = 5
+	get_tree().get_root().add_child(laser)
+	
+	#tween
+	if laser_tween and laser_tween.is_valid():   #kill surplus tweens to avoid overflowing/too much unused tween
+		laser_tween.kill()
+	else:
+		laser_tween = get_tree().create_tween()    #create new tween
+	laser_tween.tween_property(laser,"modulate:a",0,laserdur)
+	laser_tween.tween_callback(Callable(laser, "hide"))      # hide the line_shoot to avoid exist meaningless
 
 
 
 # LASER DRAWING BEGIN
 
-#Using tween for afterimage effects
-func afterimage_laser_tween():
-	if laser_tween and laser_tween.is_valid():   #kill surplus tweens to avoid overflowing/too much unused tween
-		laser_tween.kill()
-	else:
-		laser_tween = get_tree().create_tween()    #create new tween
-	laser_tween.tween_property(line_shoot,"modulate:a",0,laserdur)
-	laser_tween.tween_callback(Callable(line_shoot, "hide"))      # hide the line_shoot to avoid exist meaningless
-	
-	
-	
+
+
 func aim_laser():
 	if aiming:
 		setup_line(line_aim,PlayerData.player_node.global_position,get_global_mouse_position(),thickness,0.25)
@@ -71,10 +75,14 @@ func aim_laser():
 		#rpidly getting called to redraw aim laser (in real time delta)
 
 
+"""
+Note: temporarily ignore this function.
+Combining tween and shoot laser into shoot_beam()
+watch timer.start() to for the sniper cooldown
+"""
 func shoot_laser():
 	setup_raycast()
-	setup_line(line_shoot,PlayerData.player_node.global_position,hitPos,thickness,1.0)
-	afterimage_laser_tween()
+	shoot_beam()
 	is_shot = false
 	timer.start()
 
@@ -99,7 +107,7 @@ func setup_line(line: Line2D, from: Vector2, to: Vector2, width:float, alpha: fl
 # RAYCAST BEGIN
 
 func setup_raycast():
-	var playerPos = PlayerData.player_node.global_position
+	playerPos = PlayerData.player_node.global_position
 	var mousePos = get_global_mouse_position()
 	var direction = (mousePos - playerPos).normalized() #calculate direction vector
 	hitPos = playerPos + direction * maxrange
