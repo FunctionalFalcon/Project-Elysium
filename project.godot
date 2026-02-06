@@ -10,19 +10,27 @@ config_version=5
 
 [application]
 
-config/name="2dgame test (again)"
-run/main_scene="res://World.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/name="2dgame test (main)"
+run/main_scene="res://World/World.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://Assets/Sprite/Effects/icon.svg"
 
 [autoload]
 
-PlayerData="*res://PlayerData.gd"
+PlayerData="*res://Core/Utils/PlayerData.gd"
+DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
+WeaponDataManager="*res://Core/Managers/WeaponDataManager.gd"
+WeaponInst="res://Core/Managers/WeaponInst.gd"
 
 [display]
 
 window/size/viewport_width=1200
 window/size/viewport_height=800
+window/stretch/scale=1.1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/script_splitter/plugin.cfg")
 
 [global_group]
 

@@ -1,0 +1,42 @@
+{
+	"stats": {
+	"id": "machete",
+	"name": "Machete",
+	"atk_range": 50,
+	"dash_rec": 1.8,
+	"posture": {
+		"max": 120,
+		"recovery": 5,
+		"regen": 4
+	},
+	"parry": {
+		"window": 0.3,
+		"recovery": 0.6
+		},
+	"execution": {
+		"duration": 1.0,
+		"type": "single"
+		}
+	},
+	
+	"skills": {
+		"normal_atk": {
+			"template": "mcht_bsc",
+			"combo": 2,
+			"damage": 25,
+			"damage_mul": 1.0,
+			"boost": 1,
+			"range": 2,
+		"timing": {
+			"startup": 0.6,
+			"recovery": 0.6
+			},
+		"hitbox": "mcht_bsc_hitbox",
+		"flags": {
+			"parryable": true,
+			"armor_break": false,
+			"special_armor": false
+	  		}
+		}
+	}
+}
